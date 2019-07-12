@@ -41,8 +41,8 @@ theme_set(theme_bw())
 First, we'll read in the `RDS` file that contains the summarized pharmacological data (including the IC50 and AUC values for each drug and cell line combination, as described above). 
 
 ```{r read-rds}
-cellLinesSummary <- readRDS(file.path("..", "data", "summarizedPharmacoData.rds"))
-str(cellLinesSummary)
+summarizedData <- readRDS(file.path("..", "data", "summarizedPharmacoData.rds"))
+str(summarizedData)
 ```
 
 ## Resistance of Cell Lines
@@ -101,7 +101,7 @@ If all cell lines are resistant to a particular drug, would you expect to find a
 Now, let's explore the average drug responses by cell line. First, we'll compute the average drug responses by cell line (averaged over all drugs). Then we'll create a scatterplot to compare these averages in the two studies.
 
 ```{r, ic50-by-cellline, fig.width = 5, fig.height = 5}
-drugAvg <- cellLinesSummary %>% 
+drugAvg <- summarizedData %>% 
               group_by(cellLine) %>%
               summarise(mean_ic50_CCLE = mean(-log10(ic50_CCLE / 10^6)), 
                         mean_ic50_GDSC = mean(-log10(ic50_GDSC / 10^6)),
@@ -132,13 +132,13 @@ To assess agreement between the studies on which cell lines were sensitive or re
 Let's go ahead and add sensitivity variables to our dataset, and explore their basic properties.
 
 ```{r, create-sensitivity}
-cellLinesSummary <- cellLinesSummary %>% 
+summarizedData <- summarizedData %>% 
               mutate(cutoff = ifelse(drug == "paclitaxel", 0.4, 0.1),
                      sensitivity_GDSC = factor(ifelse( auc_GDSC < cutoff, "Resistant", "Sensitive")), 
                      sensitivity_CCLE = factor(ifelse( auc_CCLE < cutoff, "Resistant", "Sensitive"))) 
 
-table("GDSC" = cellLinesSummary$sensitivity_GDSC,
-      "CCLE" = cellLinesSummary$sensitivity_CCLE)
+table("GDSC" = summarizedData$sensitivity_GDSC,
+      "CCLE" = summarizedData$sensitivity_CCLE)
 ```
 
 What proportion of the drug-cell line combinations are in agreement of sensitivity/resistance between the two studies?
@@ -148,17 +148,17 @@ What proportion of the drug-cell line combinations are in agreement of sensitivi
 Next, we'll create a scatterplot of the AUC values, colored by sensitivity. We'll start with just the drug "PLX4720".
 
 ```{r, auc-by-sensitivity, fig.width = 7, fig.height = 5}
-cellLinesSummary <-
-    cellLinesSummary %>% 
+summarizedData <-
+    summarizedData %>% 
     mutate(category = paste(sensitivity_GDSC, sensitivity_CCLE),
            category = fct_recode(category,
                                  "Both Resistant" = "Resistant Resistant",
                                  "Both Sensitive" = "Sensitive Sensitive",
                                  "GDSC Resistant / CCLE Sensitive" = "Resistant Sensitive",
                                  "GDSC Sensitive / CCLE Resistant" = "Sensitive Resistant"))
-table(cellLinesSummary$category)
+table(summarizedData$category)
 
-cellLinesSummary %>%
+summarizedData %>%
     subset(drug == "PLX4720") %>%
     ggplot(aes(x = auc_GDSC, y = auc_CCLE, colour = category)) +
     geom_point() + 
@@ -180,7 +180,7 @@ Overall, do most cell lines seem to agree or disagree in whether they were sensi
 Next, we'll create the same scatterplot above, but for all drugs, so we can compare them side by side.
 
 ```{r, sensitivity-all-drugs, fig.width = 12, fig.height = 9}
-ggplot(cellLinesSummary, aes(x = auc_GDSC, y = auc_CCLE, colour = category)) +
+ggplot(summarizedData, aes(x = auc_GDSC, y = auc_CCLE, colour = category)) +
     geom_point(cex = 0.5) + 
     facet_wrap(~ drug) +
     xlab("GDSC AUC") +
@@ -213,7 +213,7 @@ mcc <- function (study1, study2) {
 We can now use this function to compute the MCC between studies for each drug separately.
 
 ```{r calc-mcc}
-drugCorrs <- cellLinesSummary %>% 
+drugCorrs <- summarizedData %>% 
     group_by(drug) %>% 
     summarise(matthews_corr = mcc(sensitivity_GDSC, sensitivity_CCLE))
 drugCorrs
