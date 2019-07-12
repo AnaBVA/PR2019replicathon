@@ -26,7 +26,7 @@ Each tutorial contains text and code that explores various aspects of data scien
 
 * `0b` [(Rmd)](https://github.com/pkimes/PR2019replicathon/blob/master/tutorials/0b_R_tidyverse.Rmd) [(html)](tutorials/0b_R_tidyverse.html) : "Introduction to the Tidyverse"
 
-* `1a` [(Rmd)](https://github.com/pkimes/PR2019replicathon/blob/master/tutorials/1a_explore_rawData.Rmd) [(html)](tutorials/1a_explore_rawData.html) : "Exploring Pharmacological Data with the `rawPharmacData` Dataset"
+* `1a` [(Rmd)](https://github.com/pkimes/PR2019replicathon/blob/master/tutorials/1a_explore_rawData.Rmd) [(html)](tutorials/1a_explore_rawData.html) : "Exploring Pharmacological Data with the `rawPharmacoData` Dataset"
 
 * `1b` [(Rmd)](https://github.com/pkimes/PR2019replicathon/blob/master/tutorials/1b_explore_summarizedData.Rmd) [(html)](tutorials/1b_explore_summarizedData.html) : "Exploring Replicability with the `summarizedPharmacoData` Dataset"
 

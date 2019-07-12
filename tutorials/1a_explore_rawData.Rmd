@@ -1,5 +1,5 @@
 ---
-title: "Tutorial 1a: Exploring Pharmacological Data with the `rawPharmacData` Dataset"
+title: "Tutorial 1a: Exploring Pharmacological Data with the `rawPharmacoData` Dataset"
 output:
   html_document:
     toc: true

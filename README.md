@@ -28,7 +28,7 @@ Each tutorial contains text and code that explores various aspects of data scien
 
 * [`0b_R_tidyverse.Rmd`](tutorials/0b_R_tidyverse.Rmd) : "Introduction to the Tidyverse"
 
-* [`1a_explore_rawData.Rmd`](tutorials/1a_explore_rawData.Rmd) : "Exploring Pharmacological Data with the `rawPharmacData` Dataset"
+* [`1a_explore_rawData.Rmd`](tutorials/1a_explore_rawData.Rmd) : "Exploring Pharmacological Data with the `rawPharmacoData` Dataset"
 
 * [`1b_explore_summarizedData.Rmd`](tutorials/1b_explore_summarizedData.Rmd) : "Exploring Replicability with the `summarizedPharmacoData` Dataset"
 
