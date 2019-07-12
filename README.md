@@ -1,5 +1,7 @@
 # Replicathon 2019 (IQ BIO REU, UPR-RP)
 
+Before getting started, check out the [**intro slides**](https://speakerdeck.com/pkimes/20190712-iqbio)!
+
 Clone or download this repository to your computer and open the `.Rmd` files in [RStudio](https://rstudio.com/).
 
 These materials can also be [viewed online as html webpages](https://www.pkimes.com/PR2019replicathon/). 
